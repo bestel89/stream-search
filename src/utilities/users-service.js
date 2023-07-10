@@ -7,9 +7,11 @@ import * as usersAPI from "./users-api"
 
 
 export async function signUp(userData) {
-    const token = await usersAPI.signUp(userData)
-    localStorage.setItem('token', token)
-    return getUser()
+    // const token = await usersAPI.signUp(userData)
+    console.log('log 2')
+    return await usersAPI.signUp(userData)
+    // localStorage.setItem('token', token)
+    // return getUser()
 }
 
 export async function login(userCreds) {

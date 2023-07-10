@@ -1,6 +1,5 @@
-import SignUpForm from "../../components/SignUpForm/SignUpForm";
-import LoginForm from "../../components/LoginForm/LoginForm";
-import NavLanding from "../../components/NavLanding/NavLanding";
+import SignUpForm from "../components/SignUpForm";
+import LoginForm from "../components/LoginForm";
 import { useState } from "react";
 
 export default function AuthPage({ setUser }) {
@@ -18,7 +17,6 @@ export default function AuthPage({ setUser }) {
     <main>
       {uiState.authState === 1 ? (
         <>
-          <NavLanding />
           <h1 className="text-primary">Sign Up</h1>
           <div className="">
             <div className="">

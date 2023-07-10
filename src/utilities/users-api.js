@@ -2,6 +2,7 @@ import sendRequest from "./send-request"
 const BASE_URL = '/api/users'
 
 export async function signUp(userData) {
+    console.log('log 3')
     return sendRequest(BASE_URL, 'POST', userData)
 }
 

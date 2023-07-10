@@ -1,15 +1,17 @@
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button';
+import { logOut } from '../utilities/users-service';
+import { login } from '../utilities/users-api';
+import { Link } from 'react-router-dom';
 
-export default function NavLanding() {
+export default function NavLanding({user}) {
 
     return (
         <>
           <Navbar className="bg-body-tertiary">
             <Container>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand href="/home">
                     <img
                     src="./icon-white.svg"
                     width="100"
@@ -18,7 +20,15 @@ export default function NavLanding() {
                     alt="React Bootstrap logo"
                     />
                 </Navbar.Brand>
-                <Button variant="primary">Log-in</Button>
+                { user ?
+                  <>
+                    <Button variant="secondary" onClick={logOut}>Log-out</Button>
+                  </>
+                  :
+                  <>
+                    <Button variant="primary" href="/login">Log-in</Button>
+                  </>
+                }
             </Container>
           </Navbar>
         </>

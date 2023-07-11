@@ -4,7 +4,7 @@ export default async function(country) {
     const options = {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': '06e55eee6fmshdf50720b1389774p1b30afjsn95c04db6198f',
+          'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
           'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
         }
       }

@@ -21,7 +21,7 @@ export default function App() {
           <>
             <Routes>
               {/* ROUTES AVAILABLE TO LOGGED IN USERS */}
-              <Route path="/home" element={<HomePage />} />
+              <Route path="/home" element={<HomePage user={user}/>} />
               <Route path="/searchresults" element={<SearchResultsPage />} />
               <Route path="/settings" element={<SettingsPage user={user}/>} />
             </Routes>

@@ -1,5 +1,7 @@
 import { Row, ToggleButtonGroup, ToggleButton, Col, Image, Container, Stack } from "react-bootstrap"
 import { useState } from "react"
+import sendRequest from "../utilities/send-request";
+import { addWatchListItem, removeWatchListItem } from "../utilities/watchlistItems-api";
 
 export default function SearchResultItem({item, index}) {
  
@@ -12,12 +14,12 @@ export default function SearchResultItem({item, index}) {
 
 
         function addItemToWatchlist(imdbId) {
-
+            addWatchListItem(imdbId)
         }
 
 
         function removeItemFromWatchlist(imdbId) {
-
+            removeWatchListItem(imdbId)
         }
 
         if (val.includes(index)) {

@@ -28,6 +28,7 @@ app.use('/api/users', require('./routes/api/users'))
 // Protect all routes below from anonymous users
 const ensureLoggedIn = require('./config/ensureLoggedIn');
 app.use('/api/settings', ensureLoggedIn, require('./routes/api/settings'))
+app.use('/api/watchlist-items', ensureLoggedIn, require('./routes/api/watchlist-items'))
 
 
 // The following "catch all" route (note the *) is necessary

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { getToken } from "./users-service"
 
 export default async function(url, method='GET', payload = null) {

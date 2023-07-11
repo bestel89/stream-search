@@ -10,7 +10,7 @@ export default function NavLanding({user}) {
     return (
         <>
           <Navbar className="bg-body-tertiary">
-            <Container>
+            <Container className="d-flex">
                 <Navbar.Brand href="/home">
                     <img
                     src="./icon-white.svg"
@@ -22,7 +22,10 @@ export default function NavLanding({user}) {
                 </Navbar.Brand>
                 { user ?
                   <>
-                    <Button variant="secondary" onClick={logOut}>Log-out</Button>
+                    <div>
+                      <Button variant="secondary" href="/settings" className="me-3">Settings</Button>
+                      <Button variant="secondary" onClick={logOut}>Log-out</Button>
+                    </div>
                   </>
                   :
                   <>

@@ -3,7 +3,6 @@ const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
 const SALT_ROUNDS = 12
 
-
 const userSchema = new Schema({
     name: {
         type: String, 
@@ -19,6 +18,9 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    profileId: {
+        type: Schema.Types.ObjectId,
     }
 }, {
     timestamps: true,

@@ -8,6 +8,7 @@ import LoginPage from './LoginPage'
 import NavBar from '../components/NavBar'
 import LandingPage from './LandingPage'
 import SearchResultsPage from './SearchResultsPage'
+import SettingsPage from './SettingsPage'
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
               {/* ROUTES AVAILABLE TO LOGGED IN USERS */}
               <Route path="/home" element={<HomePage />} />
               <Route path="/searchresults" element={<SearchResultsPage />} />
+              <Route path="/settings" element={<SettingsPage user={user}/>} />
             </Routes>
           </>
           :

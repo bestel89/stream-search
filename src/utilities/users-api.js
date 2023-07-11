@@ -13,3 +13,4 @@ export async function login(userCreds) {
 export async function checkToken() {
     return sendRequest(`${BASE_URL}/check-token`)
 }
+

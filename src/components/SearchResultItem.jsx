@@ -1,6 +1,40 @@
-import { Row, Button, Col, Image, Container, Stack } from "react-bootstrap"
+import { Row, ToggleButtonGroup, ToggleButton, Col, Image, Container, Stack } from "react-bootstrap"
+import { useState } from "react"
 
 export default function SearchResultItem({item, index}) {
+ 
+    const [value, setValue] = useState([])
+
+    function handleChange(val) {
+
+        setValue(val);
+        const imdbId = item.imdbId
+
+
+        function addItemToWatchlist(imdbId) {
+
+        }
+
+
+        function removeItemFromWatchlist(imdbId) {
+
+        }
+
+        if (val.includes(index)) {
+            addItemToWatchlist(imdbId)
+        } else {
+            removeItemFromWatchlist(imdbId)
+        }
+    }
+    
+    function isButtonToggled(buttonValue) {
+        return value.includes(buttonValue);
+    }
+    
+    function toggleButtonText(buttonValue) {
+        return isButtonToggled(buttonValue) ? "REMOVE" : "ADD";
+    }
+
     return (
         <>
             <Container className="mt-5">
@@ -11,35 +45,22 @@ export default function SearchResultItem({item, index}) {
                     <Col>
                         <Stack direction="horizontal" gap={5}>
                             <div className="d-flex flex-column">
-                                <h3>{item.title}</h3>
-                                <p>{item.year}</p>
+                                <h3>{item.title} - <span className="text-capitalize font-weight-light fs-5">{item.type}</span></h3>
+                                <p>{item.year} - IMDB: {item.imdbRating}/100</p>
                                 <p>{item.overview}</p>
                                 <p>{item.cast.slice(0,3).join(', ')}</p>
                             </div>
                             <div className="d-flex flex-column">
-                                <Button variant="success">ADD</Button>
+                                <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange}>
+                                    <ToggleButton id={`tbg-btn-${index}`} variant="success" value={index} key={index}>
+                                        {toggleButtonText(index)}
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             </div>
                         </Stack>
                     </Col>
                 </Row>
-
             </Container>
-
-            {/* <div className="d-flex">
-                <div>
-                    <img src={item.posterURLs.original} alt="boy watching lots of TVs" style={{ width: '10%', }}/>
-                </div>
-                <div>
-                    <div className="mt-5 d-flex justify-content-between">
-                        <h3>{item.title}</h3>
-                        <Button>Add to watchlist</Button>
-                    </div>
-                    <div>
-                        <p>{item.year}</p>
-                        <p>{item.cast}</p>
-                    </div>
-                </div>
-            </div> */}
         </>
     )
 }

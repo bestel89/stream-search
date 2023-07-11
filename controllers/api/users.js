@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
+const Profile = require('../../models/profile')
 const SALT_ROUNDS = 12
 const bcrypt = require('bcrypt')
 
@@ -17,10 +18,12 @@ function checkToken(req, res) {
 async function create(req, res) {
     try {
         // Add user to the db
-        // const user = await User.create(req.body)
-        await User.create(req.body)
-        // const token = createJWT(user)
-        // res.json(token)
+        const newUser = await User.create(req.body)
+        // create a profile for the user with default: GB
+        await Profile.create({
+            userId: newUser._id,
+            userName: newUser.name,
+        })
     } catch (err) {
         res.status(400).json(err)
     }

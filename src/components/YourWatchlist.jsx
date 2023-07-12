@@ -1,49 +1,46 @@
 import { Container } from "react-bootstrap"
 import { useEffect, useState } from "react"
 import searchShow from "../utilities/search-show"
+import AvWatchlistItems from "./AvWatchlistItems";
+import * as showsAPI from "../utilities/shows-api"
 
-export default function YourWatchlist({profile}) {
+export default function YourWatchlist({user, profile}) {
 
-    const [watchlist, setWatchlist] = useState([]);
+    console.log('a')
+    console.log('profile ', profile)
+
+    // watchlistObjsArray is an array of movie objs from API
     const [watchlistObjsArray, setWatchlistObjsArray] = useState([]);
 
+    // on page load get movies to update watchlistObjsArray
     useEffect(() => {
-        setWatchlist(profile.watchlist);
-    }, [profile]);
-
-    async function getMoviesFromAPI(watchlistArr) {
-        try {
-          const results = [];
-          for (const item of watchlistArr) {
-            const result = await searchShow(item);
-            console.log('result:', result);
-            results.push(result);
-          }
-          console.log('results:', results);
-          setWatchlistObjsArray(results);
-        } catch (error) {
-          // Handle the error
-          console.error(error);
+        if (profile) {
+            console.log('b')
+            getMovies(profile.watchlist);
+            console.log('profile watchlist ', profile.watchlist)
         }
-      }
-
-    useEffect(() => {
-        getMoviesFromAPI(watchlist);
-    }, [watchlist]);
-
-
-    // const AvailableWatchlistItems = watchlist.map((SR, idx) => (
-    //     <SearchResultItem item={SR} key={idx} index={idx}/>
-    // ))
+    }, [profile]);
+    
+    async function getMovies(watchlist) {
+        try{
+            console.log('c')
+            console.log('watchlist in getmovies: ', watchlist)
+            const results = await showsAPI.getMoviesFromAPI(watchlist)
+            console.log('results: ', results)
+            setWatchlistObjsArray(results)
+        } catch (error){
+            console.log(error)
+        }
+    }
 
     return(
         <>
             <Container className="my-4">
                 <h2>Your watchlist</h2>
                 <h3>Available on your streaming services:</h3>
-                {/* {AvailableWatchlistItems} */}
-                <h3>Unavailable on your streaming services</h3>
-                {/* {UnavailableWatchlistItems} */}
+                <Container className="d-flex flex-wrap my-4">
+                    <AvWatchlistItems watchlistObjsArray={watchlistObjsArray}/>
+                </Container>
             </Container>
         </>
     )

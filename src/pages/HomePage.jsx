@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as settingsAPI from "../utilities/settings-api"
 import SearchBar from "../components/SearchBar";
 import YourWatchlist from "../components/YourWatchlist";
@@ -6,8 +6,7 @@ import YourWatchlist from "../components/YourWatchlist";
 
 export default function HomePage({user}) {
 
-    const [profile, setProfile] = useState({})
-    const setProfileRef = useRef(setProfile)
+    const [profile, setProfile] = useState(null)
 
     useEffect(() => {
         getUserProfile(user._id)
@@ -15,13 +14,18 @@ export default function HomePage({user}) {
 
     async function getUserProfile(userId) {
         const foundProfile = await settingsAPI.getProfile(userId)
-        setProfileRef.current(foundProfile)
+        setProfile(foundProfile)
+        console.log('found profile ',foundProfile)
     }
+
+    console.log('profile on home component ', profile)
 
     return (
         <>
             <SearchBar />
-            <YourWatchlist profile={profile}/>
+            {profile && 
+                <YourWatchlist user={user} profile={profile} getUserProfile={getUserProfile}/>
+            }
         </>
     )
 }

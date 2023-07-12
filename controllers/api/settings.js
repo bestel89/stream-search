@@ -29,7 +29,7 @@ async function getProfile(req, res) {
         // console.log('hello')
         const profile = await Profile.findOne({userId: req.user._id})
         res.json(profile)
-    } catch {
-
+    } catch (error){
+        console.log(error)
     }
 }

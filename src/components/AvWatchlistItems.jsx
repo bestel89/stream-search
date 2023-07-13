@@ -4,18 +4,29 @@ import { removeWatchListItem } from "../utilities/watchlistItems-api";
 import * as showsAPI from '../utilities/shows-api'
 import * as settingsAPI from '../utilities/settings-api'
 
-export default function AvWatchlistItem({watchlistObjsArray, index}) {
+export default function AvWatchlistItems({watchlistObjsArray, profile, setProfile, index}) {
 
-    async function removeFromWatchlist() {
-        // const imdbId = item.imdbId
-        // await removeWatchListItem(imdbId)
-        // const profile = await settingsAPI.getProfile(user._id)
-        // console.log('hello')
-        // await console.log('shortened watchlist: ', profile.watchlist)
-        // await setWatchlistObjsArray(profile.watchlist)
+    async function removeFromWatchlist(evt) {
+        const clickedItemImdbId = await evt.target.id
+        await removeWatchListItem(clickedItemImdbId)
+        setProfile((profile) => {
+            const updatedWatchlist = profile.watchlist.filter((item) => item !== clickedItemImdbId)
+            const updatedProfile = { ...profile, watchlist: updatedWatchlist }
+            return updatedProfile
+        })
     }
 
-    console.log('other side', watchlistObjsArray)
+    function getStreamingInfo(showObj) {
+        const services = showObj.streamingInfo.gb
+        if (services === {}) return 'No services here!'
+        else if (services) {
+            console.log(services)
+            Object.keys(services).forEach(key => 
+                console.log(key, services[key])
+                )
+            return services
+        }
+    }
 
     return (
         <> 
@@ -27,10 +38,15 @@ export default function AvWatchlistItem({watchlistObjsArray, index}) {
                     <Card.Subtitle>IMDB Rating: {item.imdbRating}/100</Card.Subtitle>
                     <Card.Text className="mt-3">{item.overview}</Card.Text>
                     <Card.Subtitle>Streaming Services:</Card.Subtitle>
-                    <Card.Text>Services go here</Card.Text>
+                    {getStreamingInfo(item) ?
+                    <Card.Text>services</Card.Text>
+                    :
+                    <h1>no services</h1>
+                    
+                    }
                     <div className="d-flex justify-content-between">
                         <Button>View show details</Button>
-                        <Button variant="danger" onClick={removeFromWatchlist}>Remove</Button>
+                        <Button variant="danger" id={item.imdbId} onClick={removeFromWatchlist}>Remove</Button>
                     </div>
                 </Card.Body>
             </Card>

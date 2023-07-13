@@ -10,21 +10,21 @@ export default function HomePage({user}) {
 
     useEffect(() => {
         getUserProfile(user._id)
-    }, [])
+    }, [user])
 
     async function getUserProfile(userId) {
         const foundProfile = await settingsAPI.getProfile(userId)
         setProfile(foundProfile)
-        console.log('found profile ',foundProfile)
+        // console.log('found profile ',foundProfile)
     }
 
-    console.log('profile on home component ', profile)
+    // console.log('profile on home component ', profile)
 
     return (
         <>
             <SearchBar />
             {profile && 
-                <YourWatchlist user={user} profile={profile} getUserProfile={getUserProfile}/>
+                <YourWatchlist user={user} profile={profile} setProfile={setProfile} getUserProfile={getUserProfile}/>
             }
         </>
     )

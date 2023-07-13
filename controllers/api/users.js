@@ -24,6 +24,7 @@ async function create(req, res) {
             userId: newUser._id,
             userName: newUser.name,
         })
+        res.status(200).json({ message: 'Signup successful' })
     } catch (err) {
         res.status(400).json(err)
     }

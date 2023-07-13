@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <main className="App" data-bs-theme="dark">
-      <NavBar user={user} />
+      <NavBar user={user} setUser={setUser}/>
       { user ?
           <>
             <Routes>
@@ -30,7 +30,7 @@ export default function App() {
           <Routes>
             {/* ROUTES AVAILABLE TO ANON USERS */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/signup" element={<AuthPage setUser={setUser}/>} />
+            <Route path="/signup" element={<AuthPage user={user} setUser={setUser}/>} />
             <Route path="/login" element={<LoginPage setUser={setUser}/>} />
           </Routes>
       }

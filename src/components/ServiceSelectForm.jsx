@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { Form, FormGroup, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 import * as settingsAPI from '../utilities/settings-api';
 import servicesRequest from '../utilities/services-request';
+import streamingData from '../assets/services.json'
+import ServiceSelectItem from './ServiceSelectItem';
 
 export default function CountrySelectForm({user}) {
 
@@ -18,20 +20,24 @@ export default function CountrySelectForm({user}) {
         const foundProfile = await settingsAPI.getProfile(userId)
         setProfileRef.current(foundProfile)
     }
-    
-    async function loadServices(country) {
-        const result = await servicesRequest(country)
-        console.log(result)
-        // setServices(result)
+
+    async function handleSubmit() {
+
     }
-    loadServices(profile.country)
+
+    const serviceSelectItems = Object.keys(streamingData).map((serviceKey, index) => {
+        const service = streamingData[serviceKey];
+        // console.log(service);
+        return <ServiceSelectItem service={service} serviceKey={serviceKey} key={index} />;
+      });
     
     return (
         <>
             <Container>
                 <h3 className='mt-4'>Service Select</h3>
-                <p>{profile._id}</p>
-                <p>{profile.country}</p>
+                <Form autoComplete="off" onSubmit={handleSubmit}>
+                    {serviceSelectItems}
+                </Form>
             </Container>
         </>
   );

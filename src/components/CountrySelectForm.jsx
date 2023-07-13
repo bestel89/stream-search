@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, FormGroup, Button, Container } from 'react-bootstrap';
+import { Form, FormGroup, Button, Container, Alert } from 'react-bootstrap';
 import * as settingsAPI from '../utilities/settings-api';
 
 export default function CountrySelectForm() {
@@ -36,16 +36,19 @@ export default function CountrySelectForm() {
         <>
             <Container>
                 <h3 className='mt-4'>Profile settings</h3>
+                <Alert className="my-3" variant="info">
+                        Stream Search is in BETA. We currently only support users and searches in the United Kingdom.
+                </Alert>
                 <Form onSubmit={handleSubmit}>
-                    <FormGroup className='mb-3'>
-                        <Form.Select aria-label="Default select example" onChange={handleChange}>
-                            <option>Choose your country</option>
+                    <FormGroup className='my-3'>
+                        <Form.Select aria-label="Default select example" onChange={handleChange} disabled>
+                            <option>United Kingdom</option>
                             {countries.map((country, index) => (
                                 <option key={index}>{country.name}</option>
                             ))}
                         </Form.Select>
                     </FormGroup>
-                    <Button variant="primary" type="submit">Update country</Button>
+                    <Button variant="secondary" type="submit" disabled>Update country</Button>
                 </Form>
             </Container>
         </>

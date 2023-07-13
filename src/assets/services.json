@@ -1,0 +1,246 @@
+{
+  "all4": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": true,
+      "rent": false,
+      "subscription": false
+    },
+    "addOns": {}
+  },
+  "apple": {
+    "supportedStreamingTypes": {
+      "addon": true,
+      "buy": true,
+      "free": false,
+      "rent": true,
+      "subscription": true
+    },
+    "addOns": {
+      "tvs.sbd.1000211": {
+        "id": "tvs.sbd.1000211",
+        "displayName": "Tastemade",
+        "homePage": "https://tv.apple.com/gb/channel/tastemade/tvs.sbd.1000211",
+        "themeColorCode": "#2C1376",
+        "image": ""
+      },
+      "tvs.sbd.1000212": {
+        "id": "tvs.sbd.1000212",
+        "displayName": "Acorn TV",
+        "homePage": "https://tv.apple.com/gb/channel/acorn-tv/tvs.sbd.1000212",
+        "themeColorCode": "#000000",
+        "image": ""
+      },
+      "tvs.sbd.1000246": {
+        "id": "tvs.sbd.1000246",
+        "displayName": "Lionsgate+",
+        "homePage": "https://tv.apple.com/gb/channel/lionsgate/tvs.sbd.1000246",
+        "themeColorCode": "#006576",
+        "image": ""
+      },
+      "tvs.sbd.1000249": {
+        "id": "tvs.sbd.1000249",
+        "displayName": "MUBI",
+        "homePage": "https://tv.apple.com/gb/channel/mubi/tvs.sbd.1000249",
+        "themeColorCode": "#041383",
+        "image": ""
+      },
+      "tvs.sbd.1000290": {
+        "id": "tvs.sbd.1000290",
+        "displayName": "BFI Player",
+        "homePage": "https://tv.apple.com/gb/channel/bfi-player/tvs.sbd.1000290",
+        "themeColorCode": "#000000",
+        "image": ""
+      },
+      "tvs.sbd.1000327": {
+        "id": "tvs.sbd.1000327",
+        "displayName": "History Play",
+        "homePage": "https://tv.apple.com/gb/channel/history-play/tvs.sbd.1000327",
+        "themeColorCode": "#12121A",
+        "image": ""
+      },
+      "tvs.sbd.1000333": {
+        "id": "tvs.sbd.1000333",
+        "displayName": "Crime+Investigation Play",
+        "homePage": "https://tv.apple.com/gb/channel/crimeinvestigation-play/tvs.sbd.1000333",
+        "themeColorCode": "#191E24",
+        "image": ""
+      },
+      "tvs.sbd.1000439": {
+        "id": "tvs.sbd.1000439",
+        "displayName": "Paramount+",
+        "homePage": "https://tv.apple.com/gb/channel/paramount/tvs.sbd.1000439",
+        "themeColorCode": "#0066FF",
+        "image": ""
+      },
+      "tvs.sbd.1000473": {
+        "id": "tvs.sbd.1000473",
+        "displayName": "Carnegie Hall+",
+        "homePage": "https://tv.apple.com/gb/channel/carnegie-hall/tvs.sbd.1000473",
+        "themeColorCode": "#e42138",
+        "image": ""
+      },
+      "tvs.sbd.1000482": {
+        "id": "tvs.sbd.1000482",
+        "displayName": "STUDIOCANAL Presents",
+        "homePage": "https://tv.apple.com/gb/channel/studiocanal-presents/tvs.sbd.1000482",
+        "themeColorCode": "",
+        "image": ""
+      },
+      "tvs.sbd.3000": {
+        "id": "tvs.sbd.3000",
+        "displayName": "Apple TV",
+        "homePage": "https://tv.apple.com/gb/channel/apple-tv/tvs.sbd.3000",
+        "themeColorCode": "#000000",
+        "image": ""
+      }
+    }
+  },
+  "britbox": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "curiosity": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "disney": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "hotstar": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "iplayer": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": true,
+      "rent": false,
+      "subscription": false
+    },
+    "addOns": {}
+  },
+  "mubi": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "netflix": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "now": {
+    "supportedStreamingTypes": {
+      "addon": true,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": false
+    },
+    "addOns": {
+      "entertainment": {
+        "id": "entertainment",
+        "displayName": "Entertainment",
+        "homePage": "https://www.nowtv.com/gb/watch/entertainment/highlights",
+        "themeColorCode": "#ffffff",
+        "image": ""
+      },
+      "hayu": {
+        "id": "hayu",
+        "displayName": "Hayu",
+        "homePage": "https://www.nowtv.com/gb/watch/hayu/highlights",
+        "themeColorCode": "#000000",
+        "image": ""
+      },
+      "kids": {
+        "id": "kids",
+        "displayName": "Kids",
+        "homePage": "https://www.nowtv.com/gb/watch/kids/highlights",
+        "themeColorCode": "#000000",
+        "image": ""
+      },
+      "sky-cinema": {
+        "id": "sky-cinema",
+        "displayName": "Sky Cinema",
+        "homePage": "https://www.nowtv.com/gb/watch/sky-cinema/highlights",
+        "themeColorCode": "#ffffff",
+        "image": ""
+      },
+      "sky-sports": {
+        "id": "sky-sports",
+        "displayName": "Sky Sports",
+        "homePage": "https://www.nowtv.com/gb/watch/sports/highlights",
+        "themeColorCode": "#000000",
+        "image": ""
+      }
+    }
+  },
+  "prime": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": true,
+      "free": false,
+      "rent": true,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "uktv": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": false,
+      "free": false,
+      "rent": false,
+      "subscription": true
+    },
+    "addOns": {}
+  },
+  "youtube": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": true,
+      "free": true,
+      "rent": false,
+      "subscription": false
+    },
+    "addOns": {}
+  }
+}

@@ -1,13 +1,10 @@
 import { Container } from "react-bootstrap"
 import { useEffect, useState } from "react"
 import searchShow from "../utilities/search-show"
-import AvWatchlistItems from "./AvWatchlistItems";
+import AvWatchlistItem from "./AvWatchlistItem";
 import * as showsAPI from "../utilities/shows-api"
 
 export default function YourWatchlist({user, profile, setProfile}) {
-
-    // console.log('a')
-    // console.log('profile ', profile)
 
     // watchlistObjsArray is an array of movie objs from API
     const [watchlistObjsArray, setWatchlistObjsArray] = useState([]);
@@ -33,13 +30,17 @@ export default function YourWatchlist({user, profile, setProfile}) {
         }
     }
 
+    const AvWatchlistItems = watchlistObjsArray.map((item, index) => (
+        <AvWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile}/>
+    ))
+
     return(
         <>
             <Container className="my-4">
                 <h2>Your watchlist</h2>
                 <h3>Available on your streaming services:</h3>
                 <Container className="d-flex flex-wrap my-4 justify-content-center">
-                    <AvWatchlistItems watchlistObjsArray={watchlistObjsArray} profile={profile} setProfile={setProfile}/>
+                    {AvWatchlistItems}
                 </Container>
             </Container>
         </>

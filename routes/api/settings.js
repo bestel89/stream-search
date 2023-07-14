@@ -10,5 +10,8 @@ router.get('/get-profile/:id', settingsCtrl.getProfile)
 // POST /update-country
 router.post('/update-country', settingsCtrl.updateCountry)
 
+// POST /update-services
+router.post('/update-services/:id', settingsCtrl.updateServices)
+
 
 module.exports = router

@@ -69,3 +69,7 @@ export async function updateCountry(userCountry) {
 export async function getProfile(userId) {
     return sendRequest(`${BASE_URL}/get-profile/${userId}`)
 }
+
+export async function updateServices(profileId, formData) {
+    return sendRequest(`${BASE_URL}/update-services/${profileId}`, 'POST', formData)
+}

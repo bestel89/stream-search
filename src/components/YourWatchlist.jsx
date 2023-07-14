@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap"
+import { Container, Spinner } from "react-bootstrap"
 import { useEffect, useState } from "react"
 import searchShow from "../utilities/search-show"
 import AvWatchlistItem from "./AvWatchlistItem";
@@ -7,7 +7,8 @@ import * as showsAPI from "../utilities/shows-api"
 export default function YourWatchlist({user, profile, setProfile}) {
 
     // watchlistObjsArray is an array of movie objs from API
-    const [watchlistObjsArray, setWatchlistObjsArray] = useState([]);
+    const [watchlistObjsArray, setWatchlistObjsArray] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     // on page load get movies to update watchlistObjsArray
     useEffect(() => {
@@ -20,6 +21,7 @@ export default function YourWatchlist({user, profile, setProfile}) {
     
     async function getMovies(watchlist) {
         try{
+            setIsLoading(true)
             // console.log('c')
             // console.log('watchlist in getmovies: ', watchlist)
             const results = await showsAPI.getMoviesFromAPI(watchlist)
@@ -27,6 +29,8 @@ export default function YourWatchlist({user, profile, setProfile}) {
             setWatchlistObjsArray(results)
         } catch (error){
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -39,9 +43,15 @@ export default function YourWatchlist({user, profile, setProfile}) {
             <Container className="my-4">
                 <h2>Your watchlist</h2>
                 <h3>Available on your streaming services:</h3>
-                <Container className="d-flex flex-wrap my-4 justify-content-center">
-                    {AvWatchlistItems}
-                </Container>
+                {isLoading ? (
+                    <Container className="d-flex flex-wrap my-4 justify-content-center">
+                        <Spinner animation="border" role="status"></Spinner>
+                    </Container>
+                ):(
+                    <Container className="d-flex flex-wrap my-4 justify-content-center">
+                        {AvWatchlistItems}
+                    </Container>
+                )}
             </Container>
         </>
     )

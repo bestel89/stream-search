@@ -1,44 +1,85 @@
 import { useState, useEffect, useRef } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 import * as settingsAPI from '../utilities/settings-api';
-import servicesRequest from '../utilities/services-request';
 import streamingData from '../assets/services.json'
-import ServiceSelectItem from './ServiceSelectItem';
+import ServiceSelectItem from './ServiceSelectItem'
 
-export default function CountrySelectForm({user}) {
+export default function ServiceSelectForm({user}) {
 
-    const [profile, setProfile] = useState({})
-    const [services, setServices] = useState({})
-
-    const setProfileRef = useRef(setProfile)
+    const [profile, setProfile] = useState(null)
+    const [services, setServices] = useState([
+        { name: 'all4', selected: true },
+        { name: 'apple', selected: false },
+        { name: 'britbox', selected: false },
+        { name: 'curiosity', selected: false },
+        { name: 'disney', selected: false },
+        { name: 'hotstar', selected: false },
+        { name: 'iplayer', selected: true },
+        { name: 'mubi', selected: false },
+        { name: 'netflix', selected: false },
+        { name: 'now', selected: false },
+        { name: 'prime', selected: false },
+        { name: 'uktv', selected: false },
+        { name: 'youtube', selected: true }
+    ])
 
     useEffect(() => {
-        getUserProfile(user._id)
-    }, [])
+        async function getUserData() {
+            const foundProfile = await settingsAPI.getProfile(user._id)
+            setProfile(foundProfile)
+        
+            if (foundProfile && foundProfile.services) {
+                setServices(foundProfile.services)
+          }
+        }
+        getUserData()
+    }, [user])
     
-    async function getUserProfile(userId) {
-        const foundProfile = await settingsAPI.getProfile(userId)
-        setProfileRef.current(foundProfile)
+    
+      async function handleChange(serviceName, selectedValue) {
+        const updatedServices = selectedValue
+          ? [...services, serviceName]
+          : services.filter(service => service !== serviceName);
+    
+        setServices(updatedServices);
     }
 
-    async function handleSubmit() {
-
+    async function handleSubmit(evt) {
+        evt.preventDefault();
+      
+        if (profile) {
+          const updatedProfile = { ...profile, services: services };
+          setProfile(updatedProfile);
+      
+          // Update the services in the backend using settingsAPI
+          await settingsAPI.updateServices(profile._id, updatedProfile.services);
+        }
     }
 
-    const serviceSelectItems = Object.keys(streamingData).map((serviceKey, index) => {
-        const service = streamingData[serviceKey];
-        // console.log(service);
-        return <ServiceSelectItem service={service} serviceKey={serviceKey} key={index} />;
-      });
+    const serviceSelectItems = Object.entries(streamingData).map(([serviceName, serviceData]) => (
+        <ServiceSelectItem
+          service={serviceName}
+          supportedStreamingTypes={serviceData.supportedStreamingTypes}
+          key={serviceName}
+          handleChange={handleChange}
+          checked={services.includes(serviceName)}
+        />
+    ));
     
     return (
         <>
-            <Container>
-                <h3 className='mt-4'>Service Select</h3>
-                <Form autoComplete="off" onSubmit={handleSubmit}>
-                    {serviceSelectItems}
-                </Form>
-            </Container>
+          <Container>
+            <h3 className="mt-4">Service Select</h3>
+            <Alert className="my-3" variant="info">
+              All4, Youtube, and BBC iPlayer are free to use in the UK. Stream Search assumes you have access to these services.
+            </Alert>
+            <Form autoComplete="off" onSubmit={handleSubmit}>
+              <div className="d-flex flex-wrap">{serviceSelectItems}</div>
+              <Button className="my-3" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </Container>
         </>
-  );
+      );
 }

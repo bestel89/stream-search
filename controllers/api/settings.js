@@ -3,12 +3,11 @@ const Profile = require('../../models/profile')
 
 module.exports = {
     updateCountry,
-    getProfile
+    getProfile,
+    updateServices
 }
 
 async function updateCountry(req, res) {
-    // console.log('req.user', req.user)
-    // console.log('req.body', req.body)
     try {
         const profile = await Profile.findOne({userId: req.user._id})
         profile.country = req.body.country.toLowerCase()
@@ -21,12 +20,25 @@ async function updateCountry(req, res) {
     }
 }
 
+async function updateServices(req, res) {
+    try {
+        console.log(req.body)
+        const profile = await Profile.findOne({userId: req.user._id})
+        console.log(profile.services)
+        const servicesSelected = await req.body
+        profile.services = servicesSelected
+        console.log(profile.services)
+        profile.save()
+        if (res.ok) {
+            res.send('Your services have been updated');
+        }
+    } catch {
+        res.send('Error - services not updated')
+    }
+}
+
 async function getProfile(req, res) {
     try {
-        console.log(req.params.id)
-        // console.log(req.user)
-        // console.log(req.body)
-        // console.log('hello')
         const profile = await Profile.findOne({userId: req.user._id})
         res.json(profile)
     } catch (error){

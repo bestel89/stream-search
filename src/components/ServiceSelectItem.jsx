@@ -1,25 +1,21 @@
-import { Form } from "react-bootstrap"
+import { Form } from "react-bootstrap";
 
-export default function ServiceSelectItem({service, serviceKey, index}) {
+export default function ServiceSelectItem({ service, handleChange, checked }) {
+  function handleSelectChange(evt) {
+    const selectedValue = evt.target.checked;
+    handleChange(service, selectedValue);
+  }
 
-    console.log(service)
-
-    const isFree = service.supportedStreamingTypes.free;
-
-
-
-    return (
-        <>
-        <Form.Group className="my-5">
-            <Form.Label>{serviceKey}</Form.Label>
-            <Form.Check 
-                type="checkbox" 
-                label={serviceKey}
-                name={serviceKey}
-                disabled={isFree === true || isFree === undefined}
-                defaultChecked={isFree === true || isFree === undefined ? true : false}
-            />
-        </Form.Group>
-        </>
-    )
+  return (
+    <Form.Group className="my-3 mx-3">
+      <Form.Label>{service}</Form.Label>
+      <Form.Check
+        inline
+        type="checkbox"
+        name={service}
+        onChange={handleSelectChange}
+        checked={checked}
+      />
+    </Form.Group>
+  );
 }

@@ -32,7 +32,7 @@ export default function NavLanding({user, setUser}) {
               { user ?
                 <>
                   <div>
-                    <Button variant="secondary" href="/settings" className="me-3">Settings</Button>
+                    <Button variant="link" href="/settings" className="me-2"><img className="my-2" src="./cog.png" alt="settings" width="24"/></Button>
                     <Button variant="secondary" onClick={logoutUser}>Log-out</Button>
                   </div>
                 </>

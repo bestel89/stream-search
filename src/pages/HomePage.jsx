@@ -1,31 +1,45 @@
 import { useState, useEffect } from "react";
-import * as settingsAPI from "../utilities/settings-api"
+import * as settingsAPI from "../utilities/settings-api";
 import SearchBar from "../components/SearchBar";
 import YourWatchlist from "../components/YourWatchlist";
+import NoServices from "../components/NoServices";
+import NoWatchlist from "../components/NoWatchlist";
+import { Container } from "react-bootstrap";
 
+export default function HomePage({ user }) {
+  const [profile, setProfile] = useState(null);
 
-export default function HomePage({user}) {
+  useEffect(() => {
+    getUserProfile(user._id);
+  }, [user]);
 
-    const [profile, setProfile] = useState(null)
+  async function getUserProfile(userId) {
+    const foundProfile = await settingsAPI.getProfile(userId);
+    setProfile(foundProfile);
+  }
 
-    useEffect(() => {
-        getUserProfile(user._id)
-    }, [user])
-
-    async function getUserProfile(userId) {
-        const foundProfile = await settingsAPI.getProfile(userId)
-        setProfile(foundProfile)
-        // console.log('found profile ',foundProfile)
-    }
-
-    // console.log('profile on home component ', profile)
-
-    return (
+  return (
+    <>
+      <SearchBar />
+      {profile && profile.services.length === 0 && profile.watchlist.length === 0 ? (
         <>
-            <SearchBar />
-            {profile && 
-                <YourWatchlist user={user} profile={profile} setProfile={setProfile} getUserProfile={getUserProfile}/>
-            }
+          <NoServices />
+          <NoWatchlist />
         </>
-    )
+      ) : profile && profile.watchlist.length === 0 ? (
+        <NoWatchlist />
+      ) : profile && profile.services.length > 0 && profile.watchlist.length > 0 ? (
+        <Container className="my-4">
+          <h1>Welcome {user.name}</h1>
+          <YourWatchlist
+            user={user}
+            profile={profile}
+            setProfile={setProfile}
+            getUserProfile={getUserProfile}
+          />
+        </Container>
+      ) : null}
+    </>
+  );
 }
+

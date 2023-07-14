@@ -1,10 +1,12 @@
 import { Form } from "react-bootstrap";
 
-export default function ServiceSelectItem({ service, handleChange, checked }) {
+export default function ServiceSelectItem({ service, handleChange, checked, supportedStreamingTypes }) {
   function handleSelectChange(evt) {
     const selectedValue = evt.target.checked;
     handleChange(service, selectedValue);
   }
+
+  console.log(supportedStreamingTypes)
 
   return (
     <Form.Group className="my-3 mx-3">
@@ -14,7 +16,8 @@ export default function ServiceSelectItem({ service, handleChange, checked }) {
         type="checkbox"
         name={service}
         onChange={handleSelectChange}
-        checked={checked}
+        checked={checked || supportedStreamingTypes.free}
+        disabled={supportedStreamingTypes.free} // Disable the checkbox if free is true
       />
     </Form.Group>
   );

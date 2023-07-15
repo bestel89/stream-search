@@ -1,6 +1,7 @@
 import { Container, Spinner } from "react-bootstrap"
 import { useEffect, useState } from "react"
 import AvWatchlistItem from "./AvWatchlistItem";
+import UnWatchlistItem from "./UnWatchlistItem";
 import * as showsAPI from "../utilities/shows-api"
 
 export default function YourWatchlist({user, profile, setProfile}) {
@@ -49,18 +50,30 @@ export default function YourWatchlist({user, profile, setProfile}) {
         <AvWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile}/>
     ))
 
+    const UnWatchlistItems = watchlistObjsArray.map((item, index) => (
+        <UnWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile}/>
+    ))
+
     return(
         <>
             <Container className="my-4">
-                <h3>Available for you to watch:</h3>
                 {isLoading ? (
-                    <Container className="d-flex flex-wrap my-4 justify-content-center">
-                        <Spinner animation="border" role="status"></Spinner>
-                    </Container>
+                    <>
+                        <Container className="d-flex flex-wrap my-4 justify-content-center">
+                            <Spinner animation="border" role="status"></Spinner>
+                        </Container>
+                    </>
                 ):(
-                    <Container className="d-flex flex-wrap my-4 justify-content-center">
-                        {AvWatchlistItems}
-                    </Container>
+                    <>
+                        <h3>Available for you to watch:</h3>
+                        <Container className="d-flex flex-wrap my-4 justify-content-center">
+                            {AvWatchlistItems}
+                        </Container>
+                        <h3>Other shows on your watchlist:</h3>
+                        <Container className="d-flex flex-wrap my-4 justify-content-center">
+                            {UnWatchlistItems}
+                        </Container>
+                    </>
                 )}
             </Container>
         </>

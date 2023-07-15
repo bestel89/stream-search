@@ -1,9 +1,8 @@
-import { Card, Button, Alert, Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { Button, Card, Badge, OverlayTrigger, Alert, Tooltip } from "react-bootstrap"
 import * as watchlistAPI from '../utilities/watchlistItems-api'
+import { useState, useEffect } from "react"
 
-
-export default function AvWatchlistItem({item, profile, setProfile, index}) {
+export default function UnWatchlistItem({item, profile, setProfile, index}) {
 
     const [streamingServices, setStreamingServices] = useState([])
     const [showStreamingStatus, setShowStreamingStatus] = useState(null)
@@ -51,7 +50,7 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
     
     return (
         <> 
-            {showStreamingStatus && (
+            {!showStreamingStatus && (
                 <Card className="mx-3 my-3" key={index} style={{ width: '20rem' }}>
                     <Card.Img variant="top" src={item.posterURLs.original} /> 
                     <Card.Body className="d-flex flex-column">

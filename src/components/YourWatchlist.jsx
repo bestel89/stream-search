@@ -1,6 +1,5 @@
 import { Container, Spinner } from "react-bootstrap"
 import { useEffect, useState } from "react"
-import searchShow from "../utilities/search-show"
 import AvWatchlistItem from "./AvWatchlistItem";
 import * as showsAPI from "../utilities/shows-api"
 
@@ -18,6 +17,18 @@ export default function YourWatchlist({user, profile, setProfile}) {
             // console.log('profile watchlist ', profile.watchlist)
         }
     }, [profile]);
+
+    useEffect(() => {
+        getUserServices()
+    }, [])
+
+
+    async function getUserServices() {
+        const servicesFromProfile = profile.services || []
+        const userServices = [...servicesFromProfile, "all4", "iplayer", "youtube"]
+        const updatedProfile = { ...profile, services: userServices }
+        await setProfile(updatedProfile)
+    }
     
     async function getMovies(watchlist) {
         try{
@@ -41,8 +52,7 @@ export default function YourWatchlist({user, profile, setProfile}) {
     return(
         <>
             <Container className="my-4">
-                <h2>Your watchlist</h2>
-                <h3>Available on your streaming services:</h3>
+                <h3>Available for you to watch:</h3>
                 {isLoading ? (
                     <Container className="d-flex flex-wrap my-4 justify-content-center">
                         <Spinner animation="border" role="status"></Spinner>

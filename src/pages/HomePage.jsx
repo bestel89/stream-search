@@ -23,21 +23,20 @@ export default function HomePage({ user }) {
       <SearchBar />
       {profile && profile.services.length === 0 && profile.watchlist.length === 0 ? (
         <>
-          <NoServices />
-          <NoWatchlist />
+            <h1>Welcome {user.name}</h1>
+            <NoServices />
+            <NoWatchlist />
         </>
-      ) : profile && profile.watchlist.length === 0 ? (
-        <NoWatchlist />
-      ) : profile && profile.services.length > 0 && profile.watchlist.length > 0 ? (
-        <Container className="my-4">
-          <h1>Welcome {user.name}</h1>
-          <YourWatchlist
-            user={user}
-            profile={profile}
-            setProfile={setProfile}
-            getUserProfile={getUserProfile}
-          />
-        </Container>
+        ) : profile && profile.watchlist.length === 0 ? (
+        <>
+            <h1>Welcome {user.name}</h1>
+            <NoWatchlist />
+        </>
+        ) : profile && profile.services.length > 0 && profile.watchlist.length > 0 ? (
+            <Container className="my-4">
+                <h1>Welcome {user.name}</h1>
+                <YourWatchlist user={user} profile={profile} setProfile={setProfile} getUserProfile={getUserProfile} />
+            </Container>
       ) : null}
     </>
   );

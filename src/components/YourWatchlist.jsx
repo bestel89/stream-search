@@ -1,4 +1,4 @@
-import { Container, Spinner } from "react-bootstrap"
+import { Container, Spinner, Accordion } from "react-bootstrap"
 import { useEffect, useState } from "react"
 import AvWatchlistItem from "./AvWatchlistItem";
 import UnWatchlistItem from "./UnWatchlistItem";
@@ -50,8 +50,10 @@ export default function YourWatchlist({user, profile, setProfile}) {
         <AvWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile}/>
     ))
 
-    const UnWatchlistItems = watchlistObjsArray.map((item, index) => (
-        <UnWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile}/>
+    const UnWatchlistItems = watchlistObjsArray
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map((item, index) => (
+            <UnWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile} />
     ))
 
     return(
@@ -70,9 +72,9 @@ export default function YourWatchlist({user, profile, setProfile}) {
                             {AvWatchlistItems}
                         </Container>
                         <h3>Other shows on your watchlist:</h3>
-                        <Container className="d-flex flex-wrap my-4 justify-content-center">
+                        <Accordion defaultActiveKey="0" className="my-4">
                             {UnWatchlistItems}
-                        </Container>
+                        </Accordion>
                     </>
                 )}
             </Container>

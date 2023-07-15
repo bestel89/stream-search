@@ -6,8 +6,6 @@ export default function ServiceSelectItem({ service, handleChange, checked, supp
     handleChange(service, selectedValue);
   }
 
-  console.log(supportedStreamingTypes)
-
   return (
     <Form.Group className="my-3 mx-3">
       <Form.Label>{service}</Form.Label>

@@ -42,7 +42,7 @@ export default function ServiceSelectForm({user}) {
           : services.filter(service => service !== serviceName);
     
         setServices(updatedServices);
-    }
+      }
 
     async function handleSubmit(evt) {
         evt.preventDefault();

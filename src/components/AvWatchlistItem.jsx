@@ -91,8 +91,8 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
                             )}
                         </div>
                         <div className="d-flex justify-content-between mt-auto">
-                            <Button>View show details</Button>
-                            <Button variant="danger" id={item.imdbId} onClick={removeFromWatchlist}>Remove</Button>
+                            <Button size="sm">View show details</Button>
+                            <Button size="sm" variant="danger" id={item.imdbId} onClick={removeFromWatchlist}>Remove</Button>
                         </div>
                     </Card.Body>
                 </Card>

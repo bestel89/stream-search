@@ -21,9 +21,8 @@ export default function CountrySelectForm() {
     }
 
     async function handleSubmit(evt) {
-        // Prevent form from being submitted to the server
-        evt.preventDefault()
-        settingsAPI.updateCountry({country: userCountry})
+        evt.preventDefault();
+        await settingsAPI.updateCountry({ country: userCountry });
     }
 
     function getCountries(){

@@ -14,3 +14,13 @@ export async function getMoviesFromAPI(watchlist) {
       console.error(error);
     }
 }
+
+export async function getShow(imdbId) {
+  try {
+    // console.log('get show triggered, id: ', imdbId)
+    const result = await searchShow(imdbId)
+    return result.result
+  } catch (error) {
+    console.log(error)
+  }
+}

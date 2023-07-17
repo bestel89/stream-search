@@ -20,7 +20,7 @@ export default function NavLanding({user, setUser}) {
       <>
         <Navbar className="bg-body-tertiary">
           <Container className="d-flex">
-              <Navbar.Brand href="/home">
+            <Navbar.Brand href='/home'>
                   <img
                   src="./icon-white.svg"
                   width="100"

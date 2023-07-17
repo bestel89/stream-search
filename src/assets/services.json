@@ -173,7 +173,7 @@
       "buy": false,
       "free": false,
       "rent": false,
-      "subscription": false
+      "subscription": true
     },
     "addOns": {
       "entertainment": {
@@ -212,6 +212,16 @@
         "image": ""
       }
     }
+  },
+  "paramount": {
+    "supportedStreamingTypes": {
+      "addon": false,
+      "buy": true,
+      "free": false,
+      "rent": true,
+      "subscription": true
+    },
+    "addOns": {}
   },
   "prime": {
     "supportedStreamingTypes": {

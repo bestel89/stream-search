@@ -1,11 +1,13 @@
 import { Button, Card, Badge, OverlayTrigger, Alert, Tooltip, Accordion, Row, Col, Image } from "react-bootstrap"
 import * as watchlistAPI from '../utilities/watchlistItems-api'
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function UnWatchlistItem({item, profile, setProfile, index}) {
 
     const [streamingServices, setStreamingServices] = useState([])
     const [showStreamingStatus, setShowStreamingStatus] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         getStreamingInfo(item)
@@ -30,7 +32,7 @@ export default function UnWatchlistItem({item, profile, setProfile, index}) {
         if (services === {}) return 'No services here!'
         else if (services) {
             const servicesArrObjs = await watchlistAPI.reorganiseStreamingServices(services)
-            console.log(servicesArrObjs)
+            // console.log(servicesArrObjs)
             setStreamingServices(servicesArrObjs)
         }
     }
@@ -49,7 +51,15 @@ export default function UnWatchlistItem({item, profile, setProfile, index}) {
         setShowStreamingStatus(status)
     }
     
-    console.log(item)
+    async function handleShowDetails() {
+        const imdbId = await item.imdbId
+        // console.log('imdb id ', imdbId)
+        const state = {streamingServices, imdbId}
+        // console.log(state)
+        navigate('/details', {
+            state: state
+        })
+    }
 
     return (
         <> 
@@ -58,12 +68,14 @@ export default function UnWatchlistItem({item, profile, setProfile, index}) {
                     <Accordion.Header>{item.title} 
                     {streamingServices.length ? (
                         streamingServices.map((service, index) => {
-                        const { subscriptionOption, rentOption, buyOption } = service
+                        const { subscriptionOption, rentOption, buyOption, addOnOption } = service
                         let badgeVariant = ''
                         if (subscriptionOption) {
                             badgeVariant = 'success'
                         } else if (rentOption || buyOption) {
                             badgeVariant = 'warning'
+                        } else if (addOnOption) {
+                            badgeVariant = 'secondary'
                         }
 
                         return (
@@ -98,14 +110,14 @@ export default function UnWatchlistItem({item, profile, setProfile, index}) {
                                 </div>
                                 <div className="mb-3">
                                     <h5>Cast</h5>
-                                    {item.cast.join(', ')}
+                                    {item.cast.slice(0,3).join(', ')}
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p className='fw-semibold my-0'>IMDB: {item.imdbRating/10}</p>
                                     </div>
                                     <div>
-                                        <Button size="sm" className="me-3">View show details</Button>
+                                        <Button size="sm" className="me-3" onClick={handleShowDetails}>View show details</Button>
                                         <Button size="sm" variant="danger" id={item.imdbId} onClick={removeFromWatchlist}>Remove</Button>
                                     </div>
                                 </div>

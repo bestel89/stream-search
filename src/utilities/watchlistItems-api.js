@@ -12,31 +12,51 @@ export async function removeWatchListItem(imdbId) {
 
 export async function getStreamingStatus(streamingServices, profile) {
     const userServices = await profile.services
-    let status = true;
+    // console.log('user services ', userServices)
+    // console.log('streaming services ', streamingServices)
+    let status
     for (const service of streamingServices) {
-        const { subscriptionOption } = service
-        if (!subscriptionOption) {
-            status = false
-        } else if (subscriptionOption) {
-            if (userServices.includes(Object.keys(service)[0])) {
-            status = true
+        // console.log('service of streamingServices', service)
+        let { subscriptionOption, addOnOption } = service
+        if (subscriptionOption === undefined) {
+            subscriptionOption = false
         }
-      }
+        if (addOnOption === undefined) {
+            addOnOption = false
+        }
+        // console.log('subscription option ', subscriptionOption)
+        if (subscriptionOption || addOnOption) {
+            if (userServices.includes(Object.keys(service)[0])) {
+                status = true
+                // console.log('status set to true')
+            }
+        }
+        // if (!subscriptionOption) {
+        //     status = false
+        //     console.log('status set to false')
+        // } else if (subscriptionOption) {
+        //     console.log(Object.keys(service)[0])
+        //     if (userServices.includes(Object.keys(service)[0])) {
+        //     status = true
+        //     console.log('status set to true')
+        // }
     }
     return status
 }
 
 export function setTooltipContent(service) {
-    const { subscriptionOption, rentOption, buyOption } = service
+    const { subscriptionOption, rentOption, buyOption, addOnOption } = service
     let tooltipContent = ''
         if (subscriptionOption) {
-        tooltipContent = 'SUBSCRIPTION'
+        tooltipContent = 'SUBSCRIPTION/FREE'
         } else if (rentOption && buyOption) {
         tooltipContent = 'RENT and BUY'
         } else if (rentOption) {
         tooltipContent = 'RENT'
         } else if (buyOption) {
         tooltipContent = 'BUY'
+        } else if (addOnOption) {
+        tooltipContent = 'CHECK ADD-ON'
     }
     return tooltipContent
 }
@@ -55,6 +75,10 @@ export function reorganiseStreamingServices(services) {
                         newObj.subscriptionOption = true
                     } else if (option.type === 'buy') {
                         newObj.buyOption = true
+                    } else if (option.type === 'free') {
+                        newObj.subscriptionOption = true
+                    } else if (option.type === 'addon') {
+                        newObj.addOnOption = true
                     }
                 })
             })

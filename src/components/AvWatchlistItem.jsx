@@ -1,12 +1,14 @@
 import { Card, Button, Alert, Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import * as watchlistAPI from '../utilities/watchlistItems-api'
+import { useNavigate } from "react-router-dom";
 
 
 export default function AvWatchlistItem({item, profile, setProfile, index}) {
 
     const [streamingServices, setStreamingServices] = useState([])
     const [showStreamingStatus, setShowStreamingStatus] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         getStreamingInfo(item)
@@ -31,6 +33,7 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
         if (services === {}) return 'No services here!'
         else if (services) {
             const servicesArrObjs = await watchlistAPI.reorganiseStreamingServices(services)
+            // console.log(servicesArrObjs)
             setStreamingServices( ...streamingServices, servicesArrObjs)
         }
     }
@@ -41,6 +44,7 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
     }
 
     async function getShowStreamingStatus() {
+        // console.log('streaming services ', streamingServices)
         if (streamingServices.length === 0) {
           setShowStreamingStatus(null)
           return
@@ -48,6 +52,18 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
         const status = await watchlistAPI.getStreamingStatus(streamingServices, profile)
         setShowStreamingStatus(status)
     }
+
+    async function handleShowDetails() {
+        const imdbId = await item.imdbId
+        // console.log('imdb id ', imdbId)
+        const state = {streamingServices, imdbId}
+        // console.log(state)
+        navigate('/details', {
+            state: state
+        })
+    }
+
+    // console.log('streaming services ', streamingServices)
     
     return (
         <> 
@@ -62,13 +78,15 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
                         <div className="d-flex">
                             {streamingServices.length ? (
                                 streamingServices.map((service, index) => {
-                                const { subscriptionOption, rentOption, buyOption } = service;
+                                const { subscriptionOption, rentOption, buyOption, addOnOption } = service;
                                 let badgeVariant = '';
 
                                 if (subscriptionOption) {
                                     badgeVariant = 'success';
                                 } else if (rentOption || buyOption) {
                                     badgeVariant = 'warning';
+                                } else if (addOnOption) {
+                                    badgeVariant = 'secondary';
                                 }
 
                                 return (
@@ -91,7 +109,7 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
                             )}
                         </div>
                         <div className="d-flex justify-content-between mt-auto">
-                            <Button size="sm">View show details</Button>
+                            <Button size="sm" id={item.imdbId} onClick={handleShowDetails}>View show details</Button>
                             <Button size="sm" variant="danger" id={item.imdbId} onClick={removeFromWatchlist}>Remove</Button>
                         </div>
                     </Card.Body>

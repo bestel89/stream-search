@@ -8,15 +8,12 @@ export default function SearchResultItem({item, index}) {
     const [value, setValue] = useState([])
 
     function handleChange(val) {
-
         setValue(val);
         const imdbId = item.imdbId
-
 
         function addItemToWatchlist(imdbId) {
             addWatchListItem(imdbId)
         }
-
 
         function removeItemFromWatchlist(imdbId) {
             removeWatchListItem(imdbId)
@@ -36,6 +33,10 @@ export default function SearchResultItem({item, index}) {
     function toggleButtonText(buttonValue) {
         return isButtonToggled(buttonValue) ? "REMOVE" : "ADD";
     }
+    
+    if (!item.posterURLs.original) {
+        return null;
+    }
 
     return (
         <>
@@ -47,8 +48,11 @@ export default function SearchResultItem({item, index}) {
                     <Col>
                         <Stack direction="horizontal" gap={5}>
                             <div className="d-flex flex-column">
-                                <h3>{item.title} - <span className="text-capitalize font-weight-light fs-5">{item.type}</span></h3>
-                                <p>{item.year} - IMDB: {item.imdbRating}/100</p>
+                                <h3>
+                                    {item.title} - <span className="text-capitalize font-weight-light fs-5">{item.type}</span>
+                                </h3>
+                                    {item.year && <p className="fw-semibold">{item.year}</p>}
+                                    {item.imdbRating && <p>IMDB: {item.imdbRating / 10}</p>}
                                 <p>{item.overview}</p>
                                 <p>{item.cast.slice(0,3).join(', ')}</p>
                             </div>

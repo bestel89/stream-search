@@ -9,6 +9,7 @@ import NavBar from '../components/NavBar'
 import LandingPage from './LandingPage'
 import SearchResultsPage from './SearchResultsPage'
 import SettingsPage from './SettingsPage'
+import DetailsPage from './DetailsPage'
 
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
               <Route path="/home" element={<HomePage user={user}/>} />
               <Route path="/searchresults" element={<SearchResultsPage />} />
               <Route path="/settings" element={<SettingsPage user={user}/>} />
+              <Route path="/details" element={<DetailsPage user={user}/>} />
             </Routes>
           </>
           :

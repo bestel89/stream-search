@@ -5,6 +5,7 @@ module.exports = {
     remove,
 }
 
+
 async function add(req, res) {
     try {
         const profile = await Profile.findOne({ userId: req.user._id })
@@ -19,15 +20,15 @@ async function add(req, res) {
         profile.watchlist.push(itemToAdd)
         await profile.save()
         res.status(200).json({ message: 'Item added to watchlist' })
-        console.log(watchlist)
     } catch (error) {
         // Handle the error
         console.error(error);
         res.status(500).json({ message: 'An error occurred' })
     }
-  }
+}
 
-  async function remove(req, res) {
+
+async function remove(req, res) {
     try {
         const profile = await Profile.findOne({ userId: req.user._id })
         const itemToRemove = req.params.id
@@ -42,4 +43,4 @@ async function add(req, res) {
         console.error(error)
         res.status(500).json({ message: 'An error occurred' })
     }
-  }
+}

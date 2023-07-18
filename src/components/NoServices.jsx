@@ -1,4 +1,4 @@
-import { Container, Image, Col, Row, Button } from "react-bootstrap"
+import { Container, Col, Row, Button } from "react-bootstrap"
 
 export default function NoServices() {
 

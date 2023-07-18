@@ -1,21 +1,23 @@
-import { Button, Card, Badge, OverlayTrigger, Alert, Tooltip, Accordion, Row, Col, Image } from "react-bootstrap"
+import { Button, Badge, OverlayTrigger, Tooltip, Accordion, Row, Col, Image } from "react-bootstrap"
 import * as watchlistAPI from '../utilities/watchlistItems-api'
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function UnWatchlistItem({item, profile, setProfile, index}) {
-
     const [streamingServices, setStreamingServices] = useState([])
     const [showStreamingStatus, setShowStreamingStatus] = useState(null)
     const navigate = useNavigate()
+
 
     useEffect(() => {
         getStreamingInfo(item)
     }, [])
 
+
     useEffect(() => {
         getShowStreamingStatus();
     }, [streamingServices]);
+
 
     async function removeFromWatchlist(evt) {
         const clickedItemImdbId = await evt.target.id
@@ -27,20 +29,22 @@ export default function UnWatchlistItem({item, profile, setProfile, index}) {
         })
     }
 
+
     async function getStreamingInfo(showObj) {
         const services = showObj.streamingInfo.gb
         if (services === {}) return 'No services here!'
         else if (services) {
             const servicesArrObjs = await watchlistAPI.reorganiseStreamingServices(services)
-            // console.log(servicesArrObjs)
             setStreamingServices(servicesArrObjs)
         }
     }
+
 
     function renderTooltip(service) {
         const tooltipContent = watchlistAPI.setTooltipContent(service)
         return <Tooltip>{tooltipContent}</Tooltip>
     }
+
 
     async function getShowStreamingStatus() {
         if (streamingServices.length === 0) {
@@ -51,15 +55,15 @@ export default function UnWatchlistItem({item, profile, setProfile, index}) {
         setShowStreamingStatus(status)
     }
     
+
     async function handleShowDetails() {
         const imdbId = await item.imdbId
-        // console.log('imdb id ', imdbId)
         const state = {streamingServices, imdbId}
-        // console.log(state)
         navigate('/details', {
             state: state
         })
     }
+
 
     return (
         <> 

@@ -1,3 +1,3 @@
-# MERN-STACK INFRASTRUCTURE
+# STREAM SEARCH
 
-Clone this repo to provide the starter cod for a future MERN-stack project
+Stream search is a portfolio project for bestel89

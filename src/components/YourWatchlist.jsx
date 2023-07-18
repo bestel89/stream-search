@@ -4,20 +4,17 @@ import AvWatchlistItem from "./AvWatchlistItem";
 import UnWatchlistItem from "./UnWatchlistItem";
 import * as showsAPI from "../utilities/shows-api"
 
-export default function YourWatchlist({user, profile, setProfile}) {
-
-    // watchlistObjsArray is an array of movie objs from API
+export default function YourWatchlist({ profile, setProfile}) {
     const [watchlistObjsArray, setWatchlistObjsArray] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    // on page load get movies to update watchlistObjsArray
+
     useEffect(() => {
         if (profile) {
-            // console.log('b')
-            getMovies(profile.watchlist);
-            // console.log('profile watchlist ', profile.watchlist)
+            getMovies(profile.watchlist)
         }
-    }, [profile]);
+    }, [profile])
+
 
     useEffect(() => {
         getUserServices()
@@ -31,13 +28,11 @@ export default function YourWatchlist({user, profile, setProfile}) {
         await setProfile(updatedProfile)
     }
     
+
     async function getMovies(watchlist) {
         try{
             setIsLoading(true)
-            // console.log('c')
-            // console.log('watchlist in getmovies: ', watchlist)
             const results = await showsAPI.getMoviesFromAPI(watchlist)
-            // console.log('results: ', results)
             setWatchlistObjsArray(results)
         } catch (error){
             console.log(error)
@@ -46,9 +41,11 @@ export default function YourWatchlist({user, profile, setProfile}) {
         }
     }
 
+
     const AvWatchlistItems = watchlistObjsArray.map((item, index) => (
         <AvWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile}/>
     ))
+
 
     const UnWatchlistItems = watchlistObjsArray
         .sort((a, b) => a.title.localeCompare(b.title))
@@ -56,6 +53,7 @@ export default function YourWatchlist({user, profile, setProfile}) {
             <UnWatchlistItem item={item} key={index} index={index} profile={profile} setProfile={setProfile} />
     ))
 
+    
     return(
         <>
             <Container className="my-4">

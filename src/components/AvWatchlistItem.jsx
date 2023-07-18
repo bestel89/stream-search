@@ -1,22 +1,24 @@
-import { Card, Button, Alert, Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { Card, Button, Alert, Badge, OverlayTrigger, Tooltip } from "react-bootstrap"
+import { useEffect, useState } from "react"
 import * as watchlistAPI from '../utilities/watchlistItems-api'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 
 export default function AvWatchlistItem({item, profile, setProfile, index}) {
-
     const [streamingServices, setStreamingServices] = useState([])
     const [showStreamingStatus, setShowStreamingStatus] = useState(null)
     const navigate = useNavigate()
+
 
     useEffect(() => {
         getStreamingInfo(item)
     }, [])
 
+
     useEffect(() => {
-        getShowStreamingStatus();
-    }, [streamingServices]);
+        getShowStreamingStatus()
+    }, [streamingServices])
+
 
     async function removeFromWatchlist(evt) {
         const clickedItemImdbId = await evt.target.id
@@ -28,23 +30,24 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
         })
     }
 
+
     async function getStreamingInfo(showObj) {
         const services = showObj.streamingInfo.gb
         if (services === {}) return 'No services here!'
         else if (services) {
             const servicesArrObjs = await watchlistAPI.reorganiseStreamingServices(services)
-            // console.log(servicesArrObjs)
             setStreamingServices( ...streamingServices, servicesArrObjs)
         }
     }
+
 
     function renderTooltip(service) {
         const tooltipContent = watchlistAPI.setTooltipContent(service)
         return <Tooltip>{tooltipContent}</Tooltip>
     }
 
+
     async function getShowStreamingStatus() {
-        // console.log('streaming services ', streamingServices)
         if (streamingServices.length === 0) {
           setShowStreamingStatus(null)
           return
@@ -53,17 +56,15 @@ export default function AvWatchlistItem({item, profile, setProfile, index}) {
         setShowStreamingStatus(status)
     }
 
+
     async function handleShowDetails() {
         const imdbId = await item.imdbId
-        // console.log('imdb id ', imdbId)
         const state = {streamingServices, imdbId}
-        // console.log(state)
         navigate('/details', {
             state: state
         })
     }
 
-    // console.log('streaming services ', streamingServices)
     
     return (
         <> 

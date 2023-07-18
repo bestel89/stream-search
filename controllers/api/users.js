@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
 const Profile = require('../../models/profile')
-const SALT_ROUNDS = 12
 const bcrypt = require('bcrypt')
 
 module.exports = {
@@ -10,10 +9,11 @@ module.exports = {
     checkToken
 }
 
+
 function checkToken(req, res) {
-    console.log('req.user', req.user)
     res.json(req.exp)
 }
+
 
 async function create(req, res) {
     try {
@@ -30,6 +30,7 @@ async function create(req, res) {
     }
 }
 
+
 async function login(req, res) {
     try {
         const user = await User.findOne({email: req.body.email})
@@ -45,7 +46,7 @@ async function login(req, res) {
     }
 }
 
-//! Helper function for this module
+
 function createJWT(user) {
     return jwt.sign(
         // data payload

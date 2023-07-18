@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function SearchBar() {
     
     const [searchInput, setSearchInput] = useState('')
-    const [error, setError] = useState('');
+    const [error, setError] = useState('')
     const navigate = useNavigate()
 
     function handleInput(evt) {

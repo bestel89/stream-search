@@ -1,11 +1,10 @@
 import { Row, ToggleButtonGroup, ToggleButton, Col, Image, Container, Stack } from "react-bootstrap"
 import { useState } from "react"
-import sendRequest from "../utilities/send-request";
-import { addWatchListItem, removeWatchListItem } from "../utilities/watchlistItems-api";
+import { addWatchListItem, removeWatchListItem } from "../utilities/watchlistItems-api"
 
 export default function SearchResultItem({item, index}) {
- 
     const [value, setValue] = useState([])
+
 
     function handleChange(val) {
         setValue(val);
@@ -25,18 +24,22 @@ export default function SearchResultItem({item, index}) {
             removeItemFromWatchlist(imdbId)
         }
     }
+
     
     function isButtonToggled(buttonValue) {
-        return value.includes(buttonValue);
+        return value.includes(buttonValue)
     }
+
     
     function toggleButtonText(buttonValue) {
-        return isButtonToggled(buttonValue) ? "REMOVE" : "ADD";
+        return isButtonToggled(buttonValue) ? "REMOVE" : "ADD"
     }
-    
+
+
     if (!item.posterURLs.original) {
-        return null;
+        return null
     }
+
 
     return (
         <>

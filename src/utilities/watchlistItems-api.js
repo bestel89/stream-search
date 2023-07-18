@@ -6,17 +6,16 @@ export async function addWatchListItem(imdbId) {
     return sendRequest(`${BASE_URL}/add/${imdbId}`, 'POST')
 }
 
+
 export async function removeWatchListItem(imdbId) {
     return sendRequest(`${BASE_URL}/remove/${imdbId}`, 'POST')
 }
 
+
 export async function getStreamingStatus(streamingServices, profile) {
     const userServices = await profile.services
-    // console.log('user services ', userServices)
-    // console.log('streaming services ', streamingServices)
     let status
     for (const service of streamingServices) {
-        // console.log('service of streamingServices', service)
         let { subscriptionOption, addOnOption } = service
         if (subscriptionOption === undefined) {
             subscriptionOption = false
@@ -24,25 +23,15 @@ export async function getStreamingStatus(streamingServices, profile) {
         if (addOnOption === undefined) {
             addOnOption = false
         }
-        // console.log('subscription option ', subscriptionOption)
         if (subscriptionOption || addOnOption) {
             if (userServices.includes(Object.keys(service)[0])) {
                 status = true
-                // console.log('status set to true')
             }
         }
-        // if (!subscriptionOption) {
-        //     status = false
-        //     console.log('status set to false')
-        // } else if (subscriptionOption) {
-        //     console.log(Object.keys(service)[0])
-        //     if (userServices.includes(Object.keys(service)[0])) {
-        //     status = true
-        //     console.log('status set to true')
-        // }
     }
     return status
 }
+
 
 export function setTooltipContent(service) {
     const { subscriptionOption, rentOption, buyOption, addOnOption } = service
@@ -60,6 +49,7 @@ export function setTooltipContent(service) {
     }
     return tooltipContent
 }
+
 
 export function reorganiseStreamingServices(services) {
     let servicesArrObjs = []

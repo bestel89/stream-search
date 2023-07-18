@@ -1,6 +1,16 @@
 * {
     border-style: border-box;
-    /* font-family: 'Montserrat', sans-serif; */
     font-family: 'Noto Sans', sans-serif;
 }
 
+.App {
+    position: relative;
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.App-content {
+    flex: 1; 
+    padding-bottom: 80px;
+}

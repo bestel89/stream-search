@@ -1,52 +1,52 @@
-import { useState } from "react";
-import { signUp } from '../utilities/users-service';
-import { Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"
+import { signUp } from '../utilities/users-service'
+import { Form, Button } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
 export default function SignUpForm() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
-    const [error, setError] = useState('');
-    const [isSigningUp, setIsSigningUp] = useState(false);
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirm, setConfirm] = useState('')
+    const [error, setError] = useState('')
+    const [isSigningUp, setIsSigningUp] = useState(false)
+    const navigate = useNavigate()
 
-    const navigate = useNavigate();
 
     const handleChange = (evt) => {
-        const { name, value } = evt.target;
-        setError('');
-
+        const { name, value } = evt.target
+        setError('')
         const updateState = {
             name: setName,
             email: setEmail,
             password: setPassword,
             confirm: setConfirm
-        };
-
-        if (name in updateState) {
-            updateState[name](value);
         }
-    };
+        if (name in updateState) {
+            updateState[name](value)
+        }
+    }
+
 
     const handleSubmit = async (evt) => {
-        evt.preventDefault();
-    
+        evt.preventDefault()
         try {
-            setIsSigningUp(true);
+            setIsSigningUp(true)
     
-            const formData = { name, email, password };
-            await signUp(formData);
+            const formData = { name, email, password }
+            await signUp(formData)
     
-            setIsSigningUp(false);
-            navigate("/login");
+            setIsSigningUp(false)
+            navigate("/login")
         } catch {
-            setIsSigningUp(false);
-            setError('Sign Up Failed - Try Again');
+            setIsSigningUp(false)
+            setError('Sign Up Failed - Try Again')
         }
-    };
+    }
 
-    const disable = password !== confirm || isSigningUp;
+
+    const disable = password !== confirm || isSigningUp
+
 
     return (
         <Form autoComplete="off" onSubmit={handleSubmit}>

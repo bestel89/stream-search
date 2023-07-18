@@ -3,9 +3,9 @@ import { Form, Button, Container, Alert } from 'react-bootstrap';
 import * as settingsAPI from '../utilities/settings-api';
 import streamingData from '../assets/services.json'
 import ServiceSelectItem from './ServiceSelectItem'
+import { useNavigate } from 'react-router-dom';
 
 export default function ServiceSelectForm({user}) {
-
     const [profile, setProfile] = useState(null)
     const [services, setServices] = useState([
         { name: 'all4', selected: true },
@@ -22,6 +22,20 @@ export default function ServiceSelectForm({user}) {
         { name: 'uktv', selected: false },
         { name: 'youtube', selected: true }
     ])
+    const [isSubmitted, setIsSubmitted] = useState(false)
+    const navigate = useNavigate()
+
+
+    useEffect(() => {
+        let timer;
+        if (isSubmitted) {
+          timer = setTimeout(() => {
+            setIsSubmitted(false)
+          }, 3000)
+        }
+        return () => clearTimeout(timer)
+    }, [isSubmitted])
+
 
     useEffect(() => {
         async function getUserData() {
@@ -36,25 +50,26 @@ export default function ServiceSelectForm({user}) {
     }, [user])
     
     
-      async function handleChange(serviceName, selectedValue) {
+    async function handleChange(serviceName, selectedValue) {
         const updatedServices = selectedValue
-          ? [...services, serviceName]
-          : services.filter(service => service !== serviceName);
-    
-        setServices(updatedServices);
-      }
+        ? [...services, serviceName]
+        : services.filter(service => service !== serviceName)
+
+        setServices(updatedServices)
+    }
+
 
     async function handleSubmit(evt) {
-        evt.preventDefault();
-      
+        evt.preventDefault()
+        setIsSubmitted(true)
         if (profile) {
-          const updatedProfile = { ...profile, services: services };
-          setProfile(updatedProfile);
-      
-          // Update the services in the backend using settingsAPI
-          await settingsAPI.updateServices(profile._id, updatedProfile.services);
+            const updatedProfile = { ...profile, services: services }
+            setProfile(updatedProfile)
+            await settingsAPI.updateServices(profile._id, updatedProfile.services)
         }
+        navigate('/home')
     }
+
 
     const serviceSelectItems = Object.entries(streamingData).map(([serviceName, serviceData]) => (
         <ServiceSelectItem
@@ -64,7 +79,8 @@ export default function ServiceSelectForm({user}) {
           handleChange={handleChange}
           checked={services.includes(serviceName)}
         />
-    ));
+    ))
+    
     
     return (
         <>
@@ -79,6 +95,11 @@ export default function ServiceSelectForm({user}) {
                 Submit
               </Button>
             </Form>
+            {isSubmitted && (
+                <div className="alert alert-success mt-3">
+                Form submitted successfully! Thank you!
+                </div>
+            )}
           </Container>
         </>
       );

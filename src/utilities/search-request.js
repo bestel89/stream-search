@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function(searchTerm) {
     const url = `https://streaming-availability.p.rapidapi.com/v2/search/title?title=${searchTerm}&country=gb&show_type=all&output_language=en`

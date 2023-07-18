@@ -1,9 +1,6 @@
 import { Accordion, Badge, Col } from "react-bootstrap"
 
 export default function DetailsStreamingServiceItem({item, index}) {
-
-    console.log('item ', item)
-
     const options = Object.values(item)[0]
 
     return (

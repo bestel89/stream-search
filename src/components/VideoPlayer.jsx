@@ -1,11 +1,11 @@
 import YouTube, {YouTubeProps} from 'react-youtube'
 
 export default function VideoPlayer({videoId}) {
-
     const onPlayerReady: YouTubeProps['onReady'] = (event) => {
         // access to player in all event handlers via event.target
-        event.target.pauseVideo();
+        event.target.pauseVideo()
     }
+
 
     const opts: YouTubeProps['opts'] = {
         // height: '390',
@@ -19,7 +19,6 @@ export default function VideoPlayer({videoId}) {
         },
     };
 
-    // console.log(videoId)
 
     return (
         <YouTube

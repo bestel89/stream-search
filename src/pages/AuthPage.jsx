@@ -1,8 +1,6 @@
-import SignUpForm from "../components/SignUpForm";
-import LoginForm from "../components/LoginForm";
-import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import SignUpForm from "../components/SignUpForm"
+import { Container, Row, Col } from "react-bootstrap"
+import { Link } from "react-router-dom"
 
 export default function AuthPage({ user, setUser }) {
 

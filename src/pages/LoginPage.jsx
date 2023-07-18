@@ -1,6 +1,6 @@
-import LoginForm from "../components/LoginForm";
-import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import LoginForm from "../components/LoginForm"
+import { Container, Row, Col } from "react-bootstrap"
+import { Link } from "react-router-dom"
 
 export default function LoginPage({setUser}) {
     return (

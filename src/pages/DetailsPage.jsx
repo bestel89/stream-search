@@ -1,4 +1,4 @@
-import { Container, Row, Col, Spinner, Accordion } from "react-bootstrap";
+import { Container, Row, Col, Spinner, Accordion, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import * as showsAPI from '../utilities/shows-api';
 import { useLocation } from "react-router-dom";
@@ -6,25 +6,25 @@ import VideoPlayer from "../components/VideoPlayer";
 import DetailsStreamingServiceItem from "../components/DetailsStreamingServiceItem";
 
 export default function DetailsPage() {
-    const [show, setShow] = useState(null);
+    const [show, setShow] = useState(null)
     const [streamingServices, setStreamingServices] = useState(null)
-    const location = useLocation();
-    const detailsStreamingServiceItems = [];
+    const location = useLocation()
+    const detailsStreamingServiceItems = []
 
 
     useEffect(() => {
         if (location.state) {
-            const showId = location.state.imdbId;
-      
+            const showId = location.state.imdbId
         showsAPI.getShow(showId)
             .then((data) => {
-                setShow(data);
+                setShow(data)
             })
             .catch((error) => {
-                console.error("Error fetching show:", error);
-            });
+                console.error("Error fetching show:", error)
+            })
         }
-    }, [location.state]);
+    }, [location.state])
+
 
     useEffect(() => {
         if (location.state) {
@@ -37,8 +37,8 @@ export default function DetailsPage() {
         streamingServices.forEach((item, index) => {
             detailsStreamingServiceItems.push(
                 <DetailsStreamingServiceItem item={item} key={index} index={index} />
-            );
-        });
+            )
+        })
     }
 
 
@@ -57,7 +57,10 @@ export default function DetailsPage() {
             <Container className="my-4">
                 <Row>
                     <div className="d-flex justify-content-between align-items-center">
-                        <h2>{show.title}</h2>
+                        <div className='d-flex'>
+                            <Button variant="link" href="/home" className="me-2"><img className="" src="./back.png" alt="back button" width="24"/></Button>
+                            <h2>{show.title}</h2>
+                        </div>
                         <h3 className="pt-3">IMDB: {show.imdbRating/10}</h3>
                     </div>
                     <div className='d-flex'>

@@ -14,5 +14,4 @@ router.post('/', usersCtrl.create)
 // GET /api/users/check-token
 router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken)
 
-
 module.exports = router

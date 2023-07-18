@@ -10,11 +10,11 @@ export default function LoginForm({ setUser }) {
     email: '',
     password: ''
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
 
   function handleChange(evt) {
-    setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
-    setError('');
+    setCredentials({ ...credentials, [evt.target.name]: evt.target.value })
+    setError('')
   }
 
   async function handleSubmit(evt) {
@@ -28,7 +28,7 @@ export default function LoginForm({ setUser }) {
       setUser(user)
       navigate("/home")
     } catch {
-      setError('Log In Failed - Try Again');
+      setError('Log In Failed - Try Again')
     }
   }
 
@@ -56,13 +56,6 @@ export default function LoginForm({ setUser }) {
           <Button variant="primary" type="submit">
             Submit
           </Button>
-          
-            {/* <label>Email</label>
-            <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-            <label>Password</label>
-            <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-            <button type="submit">LOG IN</button>
-        <p className="error-message">&nbsp;{error}</p> */}
         </Form>
       </>
   );

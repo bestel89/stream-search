@@ -3,8 +3,8 @@ import { Form, FormGroup, Button, Container, Alert } from 'react-bootstrap';
 import * as settingsAPI from '../utilities/settings-api';
 
 export default function CountrySelectForm() {
-
     const [userCountry, setUserCountry] = useState('')
+
 
     function getCorrCountryCode(strCountry) {
         const countries = settingsAPI.countries
@@ -15,16 +15,19 @@ export default function CountrySelectForm() {
         return country
     }
 
+
     function handleChange(evt) {
-        const countryCode = getCorrCountryCode(evt.target.value);
-        setUserCountry(countryCode);
+        const countryCode = getCorrCountryCode(evt.target.value)
+        setUserCountry(countryCode)
     }
+
 
     async function handleSubmit(evt) {
-        evt.preventDefault();
-        await settingsAPI.updateCountry({ country: userCountry });
+        evt.preventDefault()
+        await settingsAPI.updateCountry({ country: userCountry })
     }
 
+    
     function getCountries(){
         return settingsAPI.countries
     }
